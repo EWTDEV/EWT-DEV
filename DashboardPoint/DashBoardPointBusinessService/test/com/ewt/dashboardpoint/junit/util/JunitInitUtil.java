@@ -45,4 +45,32 @@ public class JunitInitUtil {
 		logger.exiting(CLASS_NAME, METHOD_NAME);
 		return serviceContext;
 	}
+	
+		/**
+	 * This method builds ServiceContextObject
+	 * 
+	 * 
+	 * @return ServiceContext serviceContext;
+	 */
+	public static ServiceContext dummyMehtod() {
+		final String METHOD_NAME = "dummyMehtod()";
+		logger.entering(CLASS_NAME, METHOD_NAME);
+		ServiceContext serviceContext = new ServiceContext();
+		String dbSchema = "";
+		String persistenceUnitName = "";
+		String connectionUrl = "";
+		String connectionDriverName = "";
+
+		persistenceUnitName = ApplicationConstants.PERSISTENCE_UNIT_NAME_TEST;
+		connectionUrl = ApplicationConstants.DERBY_CONNECTION_URL;
+		connectionDriverName = ApplicationConstants.DERBY_CONNECTION_DRIVER_NAME;
+
+		serviceContext.setSchemaName(dbSchema);
+		serviceContext.setPersistenceUnitName(persistenceUnitName);
+		serviceContext.setDbUrl(connectionUrl);
+		serviceContext.setDriverClass(connectionDriverName);
+
+		logger.exiting(CLASS_NAME, METHOD_NAME);
+		return serviceContext;
+	}
 }

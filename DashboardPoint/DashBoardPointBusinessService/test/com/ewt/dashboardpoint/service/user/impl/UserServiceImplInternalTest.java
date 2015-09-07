@@ -168,5 +168,41 @@ public class UserServiceImplInternalTest {
 		assertFalse("UserDetail must not get persisted as having duplicate Email ID", isValid);
 		logger.exiting(CLASS_NAME, METHOD_NAME);
 	}
+//added code for git review
+
+	/**
+	 * Test method for {@link com.ewt.dashboardpoint.service.user.impl.UserServiceImplInternal#createUser(javax.persistence.EntityManager, com.ewt.dashboardpoint.service.user.bo.UserDetailBO)}.
+	 */
+	@Test
+	public final void testCreateUserWithDuplicateEmailIDAddedForGitTest() {
+		final String METHOD_NAME = "testCreateUserWithDuplicateEmailID()";
+		logger.entering(CLASS_NAME, METHOD_NAME);
+		
+		
+		UserDetailBO userDetailBO = new UserDetailBO();
+		userDetailBO.setFirstName("TestUserName");
+		userDetailBO.setLastName("TestUserLastName");
+		userDetailBO.setPassword("testpwd");
+		userDetailBO.setUserStatus("VERIFIED");
+		userDetailBO.setUserVerificationKey("ABCDEF");
+		userDetailBO.setUserEmailId("testUser1@gmail.com");
+		
+		boolean isValid =_userServiceImplInternal.createUser(_entityManager, userDetailBO);
+		
+		assertTrue("UserDetail must get persisted successfully", isValid);
+		
+		UserDetailBO duplicateUserDetailBO = new UserDetailBO();
+		duplicateUserDetailBO.setFirstName("TestUserName");
+		duplicateUserDetailBO.setLastName("TestUserLastName");
+		duplicateUserDetailBO.setPassword("testpwd");
+		duplicateUserDetailBO.setUserStatus("VERIFIED");
+		duplicateUserDetailBO.setUserVerificationKey("ABCDEFG"); // invalid verification code with length 7
+		duplicateUserDetailBO.setUserEmailId("testUser1@gmail.com");
+		
+		isValid =_userServiceImplInternal.createUser(_entityManager, duplicateUserDetailBO);
+		
+		assertFalse("UserDetail must not get persisted as having duplicate Email ID", isValid);
+		logger.exiting(CLASS_NAME, METHOD_NAME);
+	}
 	
 }
